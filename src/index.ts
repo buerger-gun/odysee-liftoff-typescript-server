@@ -5,22 +5,18 @@ import { resolvers } from "./resolvers";
 import { TrackAPI } from "./datasources/track-api";
 
 async function startApolloServer() {
-    const server = new ApolloServer({
-        typeDefs,
-        resolvers,
-        introspection: true,
-    });
-    const { url } = await startStandaloneServer(server, {
-        context: async () => {
-            const { cache } = server;
-            return {
-                dataSources: {
-                    trackAPI: new TrackAPI({ cache }),
-                },
-            };
+  const server = new ApolloServer({ typeDefs, resolvers });
+  const { url } = await startStandaloneServer(server, {
+    context: async () => {
+      const { cache } = server;
+      return {
+        dataSources: {
+          trackAPI: new TrackAPI({ cache }),
         },
-    });
-    console.log(`
+      };
+    },
+  });
+  console.log(`
     🚀  Server is running!
     📭  Query at ${url}
   `);

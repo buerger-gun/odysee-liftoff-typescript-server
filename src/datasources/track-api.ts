@@ -1,14 +1,31 @@
 import { RESTDataSource } from "@apollo/datasource-rest";
-import { TrackModel, AuthorModel } from "../models";
+import { TrackModel, AuthorModel, ModuleModel } from "../models";
 
 export class TrackAPI extends RESTDataSource {
-    baseURL = "https://catstronauts-api.up.railway.app/";
+  // the Catstronauts catalog is hosted on this server
+  baseURL = "https://odyssey-lift-off-rest-api.herokuapp.com/";
 
-    getTracksForHome() {
-        return this.get<TrackModel[]>("tracks");
-    }
+  getTracksForHome() {
+    return this.get<TrackModel[]>("tracks");
+  }
 
-    getAuthor(authorId: string) {
-        return this.get<AuthorModel>(`author/${authorId}`);
-    }
+  getAuthor(authorId: string) {
+    return this.get<AuthorModel>(`author/${authorId}`);
+  }
+
+  getTrack(trackId: string) {
+    return this.get<TrackModel>(`track/${trackId}`);
+  }
+
+  getTrackModules(trackId: string) {
+    return this.get<ModuleModel[]>(`track/${trackId}/modules`);
+  }
+
+  getModule(moduleId: string) {
+    return this.get<ModuleModel>(`module/${moduleId}`);
+  }
+
+  incrementTrackViews(trackId: string) {
+    return this.patch<TrackModel>(`track/${trackId}/numberOfViews`);
+  }
 }
