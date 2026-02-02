@@ -17,6 +17,18 @@ async function startApolloServer() {
       port: parseInt(process.env.PORT || "4000"),
       host: "0.0.0.0",
     },
+
+    // 2. CORS Konfiguration (NEU HINZUFÜGEN)
+    // Damit erlaubst du dem Client den Zugriff
+    cors: {
+      origin: [
+        "https://odysee-liftoff-typescript-client-production.up.railway.app", // Deine Produktions-URL
+        "http://localhost:3000", // Für lokale Entwicklung
+        "http://localhost:5173", // Vite Standard-Port lokal
+      ],
+      credentials: true,
+    },
+
     context: async () => {
       const { cache } = server;
       return {
@@ -25,7 +37,7 @@ async function startApolloServer() {
         },
       };
     },
-  });
+  } as any);
 
   console.log(`
     🚀  Server is running!
