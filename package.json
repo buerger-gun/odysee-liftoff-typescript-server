@@ -6,9 +6,10 @@
   "scripts": {
     "postinstall": "npm run generate",
     "compile": "tsc",
-    "dev": "ts-node-dev --respawn ./src/index.ts",
-    "start": "npm run compile && nodemon ./dist/index.js",
-    "generate": "graphql-codegen"
+    "dev": "npm run compile && nodemon ./dist/index.ts",
+    "start": "node ./dist/index.js",
+    "generate": "graphql-codegen",
+    "build": "tsc"
   },
   "dependencies": {
     "@apollo/datasource-rest": "^5.0.2",
